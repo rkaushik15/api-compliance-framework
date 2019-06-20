@@ -7,6 +7,8 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.Map;
+
 /**
  * Class containing methods used to implement REST calls using REST Assured.
  * These methods are be used by test cases to fire requests at REST servers and receive responses.
@@ -31,6 +33,23 @@ public class RequestsRestAssured implements Requests {
         log.debug(requestSpecification.log().all());
         return response;
     }
+
+    /**
+     * Method used to fire GET request with query parameters.
+     * @param uri The uri/endpoint for the server that receives the web request and sends response.
+     * @param parameterMap The map of query parameters, contains key-value pairs of all the parameters.
+     * @return The response object sent by the server.
+     */
+    public Response GETQueryParams(String uri, Map<String, String> parameterMap){
+        log.info("Firing GET request to " + uri);
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.queryParams(parameterMap);
+        requestSpecification.contentType(ContentType.JSON);
+        Response response = requestSpecification.get(uri);
+        log.debug(requestSpecification.log().all());
+        return response;
+    }
+
 
     /**
      * Method used to fire POST request.
