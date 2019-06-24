@@ -29,7 +29,7 @@ public class SequenceEndpointTest {
      * The server instance.
      */
     private Server refgetServer;
-    
+
     @Test
     public void getValidSequence() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject();

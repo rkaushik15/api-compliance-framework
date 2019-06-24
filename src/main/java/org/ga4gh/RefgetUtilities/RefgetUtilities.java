@@ -60,7 +60,7 @@ public class RefgetUtilities {
         seqObj.setName("I");
         seqObj.setMd5((String)seqChecksumObj.get("md5"));
         seqObj.setSha512((String)seqChecksumObj.get("sha512"));
-        seqObj.isCircular(((String)seqChecksumObj.get("is_circular")).equals("1"));
+        seqObj.isCircular(Long.toString((Long)seqChecksumObj.get("is_circular")).equals("0"));
         seqObj.setSequence(readSequence("I.faa"));
         log.debug("Extracted sequence from file: " + seqObj.getSequence());
         seqObj.setSize(seqObj.getSequence().length());
