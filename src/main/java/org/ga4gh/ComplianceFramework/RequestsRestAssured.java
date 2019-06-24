@@ -40,7 +40,7 @@ public class RequestsRestAssured implements Requests {
      * @param parameterMap The map of query parameters, contains key-value pairs of all the parameters.
      * @return The response object sent by the server.
      */
-    public Response GETQueryParams(String uri, Map<String, String> parameterMap){
+    public Response GETWithQueryParams(String uri, Map<String, String> parameterMap){
         log.info("Firing GET request to " + uri);
         RequestSpecification requestSpecification = RestAssured.given();
         requestSpecification.queryParams(parameterMap);
@@ -50,6 +50,39 @@ public class RequestsRestAssured implements Requests {
         return response;
     }
 
+    /**
+     * Method used to fire GET request with headers.
+     * @param uri The uri/endpoint for the server that receives the web request and sends response.
+     * @param headerMap The map of headers, contains key-value pairs of all the headers.
+     * @return The response object sent by the server.
+     */
+    public Response GETWithHeaders(String uri, Map<String, String> headerMap){
+        log.info("Firing GET request to " + uri);
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.headers(headerMap);
+        requestSpecification.contentType(ContentType.JSON);
+        Response response = requestSpecification.get(uri);
+        log.debug(requestSpecification.log().all());
+        return response;
+    }
+
+    /**
+     * Method used to fire GET request with headers and query parameters.
+     * @param uri The uri/endpoint for the server that receives the web request and sends response.
+     * @param headerMap The map of headers, contains key-value pairs of all the headers.
+     * @param parameterMap The map of query parameters, contains key-value pairs of all the parameters.
+     * @return The response object sent by the server.
+     */
+    public Response GETWithHeadersAndQueryParams(String uri, Map<String, String> headerMap, Map<String, String> parameterMap){
+        log.info("Firing GET request to " + uri);
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.headers(headerMap);
+        requestSpecification.queryParams(parameterMap);
+        requestSpecification.contentType(ContentType.JSON);
+        Response response = requestSpecification.get(uri);
+        log.debug(requestSpecification.log().all());
+        return response;
+    }
 
     /**
      * Method used to fire POST request.

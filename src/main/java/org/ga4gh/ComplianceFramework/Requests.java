@@ -8,7 +8,11 @@ public interface Requests {
 
     Response GET(String uri);
 
-    Response GETQueryParams(String uri, Map<String, String> parameterMap);
+    Response GETWithQueryParams(String uri, Map<String, String> parameterMap);
+
+    Response GETWithHeaders(String uri, Map<String, String> headerMap);
+
+    Response GETWithHeadersAndQueryParams(String uri, Map<String, String> headerMap, Map<String, String> parameterMap);
 
     Response POST(String uri, String body);
 
