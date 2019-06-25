@@ -48,7 +48,7 @@ public class Sequence {
         this.sha512 = (String) jsonObj.get("sha512");
         this.isCircular = jsonObj.get("circular").equals("1");
         this.size = (int) jsonObj.get("size");
-        this.sequence = RefgetUtilities.readSequence(sequenceFileName);
+        this.sequence = RefgetUtilities.readSequenceFromFastaFile(sequenceFileName);
     }
 
     /**

@@ -41,9 +41,11 @@ public class RefgetUtilities {
      * @param filename The name of the file to be read. The file must be present in the 'resources' directory.
      * @return The full sequence as a String.
      */
-    public static String readSequence(String filename){
+    public static String readSequenceFromFastaFile(String filename){
         String sequence = Utilities.readFileToString(filename);
-        sequence = sequence.replaceAll("\\r\\n|\\r|\\n", "");
+        String[] split = sequence.split("\\r?\\n", 2);
+        sequence = split[1];
+        sequence = sequence.replaceAll("\\r?\\n", "");
         return sequence;
     }
 
