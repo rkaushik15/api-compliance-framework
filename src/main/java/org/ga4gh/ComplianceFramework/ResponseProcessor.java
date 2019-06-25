@@ -23,7 +23,7 @@ public class ResponseProcessor {
      */
     public static String getBodyString(Response response){
         log.info("Extracting response body as String");
-        String responseString =  response.getBody().toString();
+        String responseString =  response.getBody().asString();
         log.debug("Extracted body: " + responseString);
         return responseString;
     }
