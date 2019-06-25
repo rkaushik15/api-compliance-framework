@@ -21,7 +21,7 @@ public class Sequence {
     /**
      * Whether the sequence is circular or not.
      */
-    private boolean is_circular;
+    private boolean isCircular;
 
     /**
      * The MD5 hash value of the sequence.
@@ -46,7 +46,7 @@ public class Sequence {
         this.name = (String) jsonObj.get("name");
         this.md5 = (String) jsonObj.get("md5");
         this.sha512 = (String) jsonObj.get("sha512");
-        this.is_circular = jsonObj.get("circular").equals("1");
+        this.isCircular = jsonObj.get("circular").equals("1");
         this.size = (int) jsonObj.get("size");
         this.sequence = RefgetUtilities.readSequence(sequenceFileName);
     }
@@ -68,11 +68,11 @@ public class Sequence {
     }
 
     /**
-     * Getter method to retrieve the value of is_circular.
+     * Getter method to retrieve the value of isCircular.
      * @return true or false depending on whether the sequence is circular or not.
      */
     public boolean isCircular() {
-        return is_circular;
+        return isCircular;
     }
 
     /**
