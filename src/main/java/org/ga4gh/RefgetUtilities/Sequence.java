@@ -1,6 +1,8 @@
 package org.ga4gh.RefgetUtilities;
 
 
+import org.json.simple.JSONObject;
+
 /**
  * Class that holds information about a particular sequence.
  */
@@ -35,6 +37,19 @@ public class Sequence {
      * The length of the entire sequence.
      */
     private int size;
+
+    public Sequence(JSONObject jsonObj) {
+        this(jsonObj, jsonObj.get("name") + ".faa");
+    }
+
+    public Sequence(JSONObject jsonObj, String sequenceFileName) {
+        this.name = (String) jsonObj.get("name");
+        this.md5 = (String) jsonObj.get("md5");
+        this.sha512 = (String) jsonObj.get("sha512");
+        this.is_circular = (Boolean) jsonObj.get("circular");
+        this.size = (int) jsonObj.get("size");
+        this.sequence = RefgetUtilities.readSequence(sequenceFileName);
+    }
 
     /**
      * Getter method to retrieve the name of the sequence.

@@ -2,10 +2,10 @@ package org.ga4gh.RefgetUtilities;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.ga4gh.ComplianceFramework.Constants;
 
-import org.ga4gh.ComplianceFramework.TestingFramework;
+import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Utilities;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -54,16 +54,8 @@ public class RefgetUtilities {
      * @throws ParseException if there are errors in converting the file to a JSONObject. Can occur if file does not follow proper JSON syntax.
      */
     public static Sequence getValidSequenceObject() throws IOException, ParseException {
-        Sequence seqObj = new Sequence();
         JSONObject seqChecksumObj = readChecksumsJSON("I");
         log.debug("Extracted JSONObject: " + seqChecksumObj);
-        seqObj.setName("I");
-        seqObj.setMd5((String)seqChecksumObj.get("md5"));
-        seqObj.setSha512((String)seqChecksumObj.get("sha512"));
-        seqObj.isCircular(Long.toString((Long)seqChecksumObj.get("is_circular")).equals("0"));
-        seqObj.setSequence(readSequence("I.faa"));
-        log.debug("Extracted sequence from file: " + seqObj.getSequence());
-        seqObj.setSize(seqObj.getSequence().length());
-        return seqObj;
+        return new Sequence(seqChecksumObj);
     }
 }
