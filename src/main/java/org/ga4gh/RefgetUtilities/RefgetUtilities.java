@@ -21,7 +21,7 @@ public class RefgetUtilities {
     /**
      * The logger object used by log4j to record application logs.
      */
-    private static Logger log = LogManager.getLogger(RefgetUtilities.class.getName());
+    private static Logger log = LogManager.getLogger(RefgetUtilities.class);
 
     /**
      * Method to read the Checksum JSON file and return object of a particular sequence as a JSONObject. The object contains some metadata associated with the sequence.

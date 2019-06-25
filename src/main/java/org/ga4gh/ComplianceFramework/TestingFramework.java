@@ -15,7 +15,7 @@ public class TestingFramework {
     /**
      * The logger object used by log4j to record application logs.
      */
-    private static Logger log = LogManager.getLogger(TestingFramework.class.getName());
+    private static Logger log = LogManager.getLogger(TestingFramework.class);
 
     /**
      * Method to compare a response body to a local file and validate if both are same.

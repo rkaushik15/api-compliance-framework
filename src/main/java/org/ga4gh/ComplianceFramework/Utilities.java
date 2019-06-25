@@ -1,8 +1,5 @@
 package org.ga4gh.ComplianceFramework;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;

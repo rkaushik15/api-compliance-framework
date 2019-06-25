@@ -13,7 +13,7 @@ public class Server {
     /**
      * The logger object used by log4j to record application logs.
      */
-    private static Logger log = LogManager.getLogger(Server.class.getName());
+    private static Logger log = LogManager.getLogger(Server.class);
 
     /**
      * The base URL/address of the server.

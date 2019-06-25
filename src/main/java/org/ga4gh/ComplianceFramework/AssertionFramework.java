@@ -12,7 +12,7 @@ public class AssertionFramework {
     /**
      * The logger object used by log4j to record application logs.
      */
-    private static Logger log = LogManager.getLogger(AssertionFramework.class.getName());
+    private static Logger log = LogManager.getLogger(AssertionFramework.class);
 
     /**
      * Method to validate if the argument passed is true. An AssertionError is thrown if the argument is not true.

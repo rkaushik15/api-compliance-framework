@@ -18,7 +18,7 @@ public class RequestsRestAssured implements Requests {
     /**
      * The logger object used by log4j to record application logs.
      */
-    private static Logger log = LogManager.getLogger(RequestsRestAssured.class.getName());
+    private static Logger log = LogManager.getLogger(RequestsRestAssured.class);
 
     /**
      * Method used to fire GET request.

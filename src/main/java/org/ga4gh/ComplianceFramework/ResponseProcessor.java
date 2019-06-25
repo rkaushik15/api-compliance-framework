@@ -14,7 +14,7 @@ public class ResponseProcessor {
     /**
      * The logger object used by log4j to record application logs.
      */
-    private static Logger log = LogManager.getLogger(ResponseProcessor.class.getName());
+    private static Logger log = LogManager.getLogger(ResponseProcessor.class);
 
     /**
      * Method used to extract the body of the response sent by the server, as plain text (using String object).
