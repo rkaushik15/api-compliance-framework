@@ -16,20 +16,17 @@ public class Utilities {
      * @param filename The name of the file to be read. The file must be present in the 'resources' directory.
      * @return The contents of the file in the form off a String.
      */
-    public static String readFileToString(String filename){
+    public static String readFileToString(String filename) throws IOException {
         //a combination of BufferedReader with StringBuilder is used to extract the file contents.
         //this method has shown high performance in terms of memory management and speed, as compared to other methods.
         Path path = Paths.get(Constants.RESOURCE_DIR + filename);
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = Files.newBufferedReader(path, Constants.ENCODING_UTF8)){
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        BufferedReader reader = Files.newBufferedReader(path, Constants.ENCODING_UTF8);
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line + "\n");
         }
+
         return sb.toString();
     }
-
 }
