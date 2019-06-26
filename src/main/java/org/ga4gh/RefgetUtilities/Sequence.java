@@ -36,7 +36,7 @@ public class Sequence {
     /**
      * The length of the entire sequence.
      */
-    private int size;
+    private Long size;
 
     public Sequence(JSONObject jsonObj) {
         this(jsonObj, jsonObj.get("name") + ".faa");
@@ -46,8 +46,8 @@ public class Sequence {
         this.name = (String) jsonObj.get("name");
         this.md5 = (String) jsonObj.get("md5");
         this.sha512 = (String) jsonObj.get("sha512");
-        this.isCircular = jsonObj.get("circular").equals("1");
-        this.size = (int) jsonObj.get("size");
+        this.isCircular = jsonObj.get("is_circular").equals("1");
+        this.size = (Long) jsonObj.get("size");
         this.sequence = RefgetUtilities.readSequenceFromFastaFile(sequenceFileName);
     }
 
@@ -95,7 +95,7 @@ public class Sequence {
      * Getter method to retrieve the length of the sequence.
      * @return the length of the sequence.
      */
-    public int getSize() {
+    public Long getSize() {
         return size;
     }
 }

@@ -43,8 +43,7 @@ public class RefgetUtilities {
      */
     public static String readSequenceFromFastaFile(String filename){
         String sequence = Utilities.readFileToString(filename);
-        String[] split = sequence.split("\\r?\\n", 2);
-        sequence = split[1];
+        sequence = sequence.replaceAll(">.*\\r?\\n", "");
         sequence = sequence.replaceAll("\\r?\\n", "");
         return sequence;
     }

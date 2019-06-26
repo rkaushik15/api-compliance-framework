@@ -24,7 +24,7 @@ public class Utilities {
         try (BufferedReader reader = Files.newBufferedReader(path, Constants.ENCODING_UTF8)){
             String line = null;
             while ((line = reader.readLine()) != null) {
-                sb.append(line);
+                sb.append(line + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
