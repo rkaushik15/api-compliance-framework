@@ -28,16 +28,14 @@ public class SequenceEndpointTest {
     /**
      * The server instance.
      */
-    private Server refgetServer;
+    private Server refgetServer = new Server("http://localhost:5000");;
 
     @Test
     public void getValidSequence() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject();
-        refgetServer = new Server("http://localhost:5000");
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + validSeq.getMd5());
 
         //firing request
-        Response response = request.GET(finalEndpoint);
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5());
 
         //testing
         Assert.assertTrue(ResponseProcessor.checkSuccess(response));
@@ -47,13 +45,9 @@ public class SequenceEndpointTest {
     @Test
     public void getValidSequenceWithStartParameter() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject();
-        refgetServer = new Server("http://localhost:5000");
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + validSeq.getMd5());
-        Map<String, String> parameterMap = new HashMap<>();
-        parameterMap.put("start", "0");
 
         //firing request
-        Response response = request.GETWithQueryParams(finalEndpoint, parameterMap);
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, null);
 
         //testing
         Assert.assertTrue(ResponseProcessor.checkSuccess(response));
@@ -63,14 +57,9 @@ public class SequenceEndpointTest {
     @Test
     public void getValidSequenceWithStartAndEndParameter() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject();
-        refgetServer = new Server("http://localhost:5000");
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + validSeq.getMd5());
-        Map<String, String> parameterMap = new HashMap<>();
-        parameterMap.put("start", "0");
-        parameterMap.put("end", Integer.toString(validSeq.getSequence().length()));
 
         //firing request
-        Response response = request.GETWithQueryParams(finalEndpoint, parameterMap);
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
 
         //testing
         Assert.assertTrue(ResponseProcessor.checkSuccess(response));
@@ -79,11 +68,9 @@ public class SequenceEndpointTest {
 
     @Test
     public void getInvalidSequence() throws IOException, ParseException {
-        refgetServer = new Server("http://localhost:5000");
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + "invalid_id");
 
         //firing request
-        Response response = request.GET(finalEndpoint);
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, "invalid_seq");
 
         //testing
         Assert.assertFalse(ResponseProcessor.checkSuccess(response));

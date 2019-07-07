@@ -1,9 +1,12 @@
 package org.ga4gh.RefgetUtilities;
 
+import io.restassured.response.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import org.ga4gh.ComplianceFramework.Constants;
+import org.ga4gh.ComplianceFramework.RequestsRestAssured;
+import org.ga4gh.ComplianceFramework.Server;
 import org.ga4gh.ComplianceFramework.Utilities;
 
 import org.json.simple.JSONObject;
@@ -12,6 +15,8 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class containing some utility functions used for testing refget API servers.
@@ -22,6 +27,11 @@ public class RefgetUtilities {
      * The logger object used by log4j to record application logs.
      */
     private static Logger log = LogManager.getLogger(RefgetUtilities.class);
+
+    /**
+     * Request object to be used to fire API requests.
+     */
+    private static RequestsRestAssured request = new RequestsRestAssured();
 
     /**
      * Method to read the Checksum JSON file and return object of a particular sequence as a JSONObject. The object contains some metadata associated with the sequence.
@@ -58,5 +68,36 @@ public class RefgetUtilities {
         JSONObject seqChecksumObj = readChecksumsJSON("I");
         log.debug("Extracted JSONObject: " + seqChecksumObj);
         return new Sequence(seqChecksumObj);
+    }
+
+    /**
+     * Method to return a fire a GET request to a refget server and return the sequence.
+     * @param refgetServer The server object of the server that will receive the request.
+     * @param id The id/hash of the sequence to be retrieved.
+     * @return The response sent by the server.
+     */
+    public static Response getSequenceResponse(Server refgetServer, String id){
+        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + id);
+        return request.GET(finalEndpoint);
+    }
+
+    /**
+     * Method to return a fire a GET request to a refget server and return the sequence (sub-sequence also supported).
+     * @param refgetServer The server object of the server that will receive the request.
+     * @param id The id/hash of the sequence to be retrieved.
+     * @param start The value of the 'start' parameter of sub-sequence.
+     * @param end The value of the 'end' query parameter of sub-sequence.
+     * @return The response sent by the server.
+     */
+    public static Response getSequenceResponse(Server refgetServer, String id, Integer start, Integer end){
+        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + id);
+        Map<String, String> parameterMap = new HashMap<>();
+        if(start != null) {
+            parameterMap.put("start", start.toString());
+        }
+        if(end != null) {
+            parameterMap.put("end", end.toString());
+        }
+        return request.GETWithQueryParams(finalEndpoint, parameterMap);
     }
 }
