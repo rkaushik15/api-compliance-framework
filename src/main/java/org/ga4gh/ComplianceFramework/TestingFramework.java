@@ -6,6 +6,8 @@ import io.restassured.response.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+
 /**
  * Class containing basic methods used by most of the test cases while checking for API compliance.
  * These methods would improve re-usability of code and reduce overall test development costs.
@@ -23,7 +25,7 @@ public class TestingFramework {
      * @param filename The name of the file which contains the expected response body for validation.
      * @return true or false depending on whether the response body is same as contents of the file or not.
      */
-    public static boolean validateResponseBodyWithLocalFile(Response response, String filename) {
+    public static boolean validateResponseBodyWithLocalFile(Response response, String filename) throws IOException {
         log.info("Extracting the file contents to a String");
         String fileString = Utilities.readFileToString(filename);
         log.debug("File data: " + fileString);

@@ -41,7 +41,7 @@ public class RefgetUtilities {
      * @param filename The name of the file to be read. The file must be present in the 'resources' directory.
      * @return The full sequence as a String.
      */
-    public static String readSequenceFromFastaFile(String filename){
+    public static String readSequenceFromFastaFile(String filename) throws IOException {
         String sequence = Utilities.readFileToString(filename);
         sequence = sequence.replaceAll(">.*\\r?\\n", "");
         sequence = sequence.replaceAll("\\r?\\n", "");
