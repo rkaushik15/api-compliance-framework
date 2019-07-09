@@ -12,4 +12,6 @@ public class Constants {
     public final static Charset ENCODING_US_ASCII = StandardCharsets.US_ASCII;
 
     public final static String RESOURCE_DIR = "./resources/";
+
+    public final static String SEQUENCE_ACCEPT_HEADER = "text/vnd.ga4gh.refget.v1.0.0+plain";
 }

@@ -1,6 +1,7 @@
 package org.ga4gh.RefgetTestSuite;
 
 import io.restassured.response.Response;
+import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.RequestsRestAssured;
 import org.ga4gh.ComplianceFramework.ResponseProcessor;
 import org.ga4gh.ComplianceFramework.Server;
@@ -64,6 +65,36 @@ public class SequenceEndpointTest {
         //testing
         Assert.assertTrue(ResponseProcessor.checkSuccess(response));
         Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+    }
+
+    @Test
+    public void getValidSequenceWithHeaders() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+
+        Map<String, String> headerMap = new HashMap<>();
+        headerMap.put("Accept", Constants.SEQUENCE_ACCEPT_HEADER);
+
+        //firing request
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+
+        //testing
+        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
+        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+    }
+
+    @Test
+    public void getValidSequenceWithInvalidHeaders() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+
+        Map<String, String> headerMap = new HashMap<>();
+        headerMap.put("Accept", "invalid/accept_header");
+
+        //firing request
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+
+        //testing
+        Assert.assertFalse(ResponseProcessor.checkSuccess(response));
+        Assert.assertEquals(ResponseProcessor.getStatusCode(response), 406);
     }
 
     @Test

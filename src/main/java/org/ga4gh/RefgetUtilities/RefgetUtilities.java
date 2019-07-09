@@ -100,4 +100,16 @@ public class RefgetUtilities {
         }
         return request.GETWithQueryParams(finalEndpoint, parameterMap);
     }
+
+    /**
+     * Method to return a fire a GET request with headers to a refget server and return the sequence.
+     * @param refgetServer The server object of the server that will receive the request.
+     * @param id The id/hash of the sequence to be retrieved.
+     * @param headerMap The headers to be sent with the request..
+     * @return The response sent by the server.
+     */
+    public static Response getSequenceResponse(Server refgetServer, String id, Map<String, String> headerMap){
+        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + id);
+        return request.GETWithHeaders(finalEndpoint, headerMap);
+    }
 }
