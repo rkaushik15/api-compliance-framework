@@ -3,6 +3,8 @@ package org.ga4gh.RefgetUtilities;
 
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
+
 /**
  * Class that holds information about a particular sequence.
  */
@@ -38,11 +40,11 @@ public class Sequence {
      */
     private Long size;
 
-    public Sequence(JSONObject jsonObj) {
+    public Sequence(JSONObject jsonObj) throws IOException {
         this(jsonObj, jsonObj.get("name") + ".faa");
     }
 
-    public Sequence(JSONObject jsonObj, String sequenceFileName) {
+    public Sequence(JSONObject jsonObj, String sequenceFileName) throws IOException {
         this.name = (String) jsonObj.get("name");
         this.md5 = (String) jsonObj.get("md5");
         this.sha512 = (String) jsonObj.get("sha512");

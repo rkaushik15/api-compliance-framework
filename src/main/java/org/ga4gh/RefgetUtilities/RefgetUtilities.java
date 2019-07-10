@@ -71,6 +71,18 @@ public class RefgetUtilities {
     }
 
     /**
+     * Method to return a Sequence object of a valid circular sequence.
+     * @return Sequence object of a valid circular sequence.
+     * @throws IOException if there are errors while reading the file.
+     * @throws ParseException if there are errors in converting the file to a JSONObject. Can occur if file does not follow proper JSON syntax.
+     */
+    public static Sequence getValidCircularSequenceObject() throws IOException, ParseException {
+        JSONObject seqChecksumObj = readChecksumsJSON("NC");
+        log.debug("Extracted JSONObject: " + seqChecksumObj);
+        return new Sequence(seqChecksumObj);
+    }
+
+    /**
      * Method to return a fire a GET request to a refget server and return the sequence.
      * @param refgetServer The server object of the server that will receive the request.
      * @param id The id/hash of the sequence to be retrieved.

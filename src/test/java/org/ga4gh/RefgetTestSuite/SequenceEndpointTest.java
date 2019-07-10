@@ -29,10 +29,10 @@ public class SequenceEndpointTest {
     /**
      * The server instance.
      */
-    private Server refgetServer = new Server("http://localhost:5000");;
+    private Server refgetServer = new Server("http://refget.herokuapp.com");
 
     @Test
-    public void getValidSequenceMd5() throws IOException, ParseException {
+    public void getValidSequence() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject();
 
         //firing request
@@ -49,6 +49,18 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getSha512());
+
+        //testing
+        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
+        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+    }
+
+    @Test
+    public void getValidCircularSequence() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
+
+        //firing request
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
 
         //testing
         Assert.assertTrue(ResponseProcessor.checkSuccess(response));
@@ -103,8 +115,8 @@ public class SequenceEndpointTest {
 
             //testing
             Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-            Assert.assertTrue(TestingFramework.validateResponseHeader(response, "content-length", Integer.toString(testCase.getRight())));
-            Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft(), testCase.getMiddle() - 1));
+            Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Length", Integer.toString(testCase.getRight())));
+            Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft()==null?0:testCase.getLeft(), testCase.getMiddle()==null?230218:testCase.getMiddle()));
         }
     }
 
@@ -151,8 +163,8 @@ public class SequenceEndpointTest {
 
         //testing
         Assert.assertEquals(ResponseProcessor.getStatusCode(response), 206);
-        Assert.assertTrue(TestingFramework.validateResponseHeader(response, "content-length", Integer.toString(10)));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(10, 19));
+        Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Length", Integer.toString(10)));
+        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(10, 20));
     }
 
     @Test
@@ -178,8 +190,27 @@ public class SequenceEndpointTest {
 
             //testing
             Assert.assertEquals(ResponseProcessor.getStatusCode(response), 206);
-            Assert.assertTrue(TestingFramework.validateResponseHeader(response, "content-length", Integer.toString(testCase.getRight())));
-            Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft(), testCase.getMiddle()));
+            Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Length", Integer.toString(testCase.getRight())));
+            Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft(), testCase.getMiddle()>230217?230218:(testCase.getMiddle()+1)));
+        }
+    }
+
+    @Test
+    public void getValidCircularSequenceCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
+
+        List<Triple<Integer, Integer, Integer>> testCases = new ArrayList<>();
+        testCases.add(Triple.of(5374, 5, 17));
+        testCases.add(Triple.of(5374, 0, 12));
+        testCases.add(Triple.of(5380, 25, 31));
+
+        for (Triple<Integer, Integer, Integer> testCase : testCases) {
+            //firing request
+            Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getMiddle());
+
+            //testing
+            Assert.assertTrue(ResponseProcessor.checkSuccess(response));
+            Assert.assertEquals((Integer)ResponseProcessor.getBodyString(response).length(), testCase.getRight());
         }
     }
 
