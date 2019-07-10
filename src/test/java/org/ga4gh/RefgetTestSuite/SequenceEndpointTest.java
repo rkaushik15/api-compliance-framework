@@ -39,8 +39,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5());
 
         //testing
-        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
     @Test
@@ -51,8 +51,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getSha512());
 
         //testing
-        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
     @Test
@@ -63,8 +63,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
 
         //testing
-        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
     @Test
@@ -75,8 +75,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, null);
 
         //testing
-        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
     @Test
@@ -87,8 +87,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
 
         //testing
-        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
     @Test
@@ -114,9 +114,9 @@ public class SequenceEndpointTest {
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getMiddle());
 
             //testing
-            Assert.assertTrue(ResponseProcessor.checkSuccess(response));
+            Assert.assertTrue(TestingFramework.checkSuccess(response));
             Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Length", Integer.toString(testCase.getRight())));
-            Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft()==null?0:testCase.getLeft(), testCase.getMiddle()==null?230218:testCase.getMiddle()));
+            Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft()==null?0:testCase.getLeft(), testCase.getMiddle()==null?230218:testCase.getMiddle()));
         }
     }
 
@@ -131,8 +131,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
 
         //testing
-        Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence());
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
     @Test
@@ -146,8 +146,8 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
 
         //testing
-        Assert.assertFalse(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getStatusCode(response), 406);
+        Assert.assertFalse(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 406);
     }
 
     @Test
@@ -162,9 +162,9 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
 
         //testing
-        Assert.assertEquals(ResponseProcessor.getStatusCode(response), 206);
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 206);
         Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Length", Integer.toString(10)));
-        Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(10, 20));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence().substring(10, 20));
     }
 
     @Test
@@ -189,9 +189,9 @@ public class SequenceEndpointTest {
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
 
             //testing
-            Assert.assertEquals(ResponseProcessor.getStatusCode(response), 206);
+            Assert.assertEquals(TestingFramework.getStatusCode(response), 206);
             Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Length", Integer.toString(testCase.getRight())));
-            Assert.assertEquals(ResponseProcessor.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft(), testCase.getMiddle()>230217?230218:(testCase.getMiddle()+1)));
+            Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence().substring(testCase.getLeft(), testCase.getMiddle()>230217?230218:(testCase.getMiddle()+1)));
         }
     }
 
@@ -209,8 +209,8 @@ public class SequenceEndpointTest {
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getMiddle());
 
             //testing
-            Assert.assertTrue(ResponseProcessor.checkSuccess(response));
-            Assert.assertEquals((Integer)ResponseProcessor.getBodyString(response).length(), testCase.getRight());
+            Assert.assertTrue(TestingFramework.checkSuccess(response));
+            Assert.assertEquals((Integer)TestingFramework.getBodyString(response).length(), testCase.getRight());
         }
     }
 
@@ -221,7 +221,7 @@ public class SequenceEndpointTest {
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, "invalid_seq");
 
         //testing
-        Assert.assertFalse(ResponseProcessor.checkSuccess(response));
-        Assert.assertEquals(ResponseProcessor.getStatusCode(response), 404);
+        Assert.assertFalse(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 404);
     }
 }
