@@ -23,11 +23,6 @@ import java.util.Map;
 public class SequenceEndpointTest {
 
     /**
-     * Request object to be used to fire API requests.
-     */
-    private RequestsRestAssured request = new RequestsRestAssured();
-
-    /**
      * The server instance.
      */
     private Server refgetServer = new Server("http://refget.herokuapp.com");

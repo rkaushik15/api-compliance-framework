@@ -14,4 +14,8 @@ public class Constants {
     public final static String RESOURCE_DIR = "./resources/";
 
     public final static String SEQUENCE_ACCEPT_HEADER = "text/vnd.ga4gh.refget.v1.0.0+plain";
+    public final static String INFO_ACCEPT_HEADER = "application/vnd.ga4gh.refget.v1.0.0+json";
+
+    public final static String INFO_ENDPOINT = "/sequence/service-info";
+    public final static String SEQUENCE_ENDPOINT = "/sequence/";
 }

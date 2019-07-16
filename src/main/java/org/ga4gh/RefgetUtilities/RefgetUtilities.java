@@ -89,7 +89,7 @@ public class RefgetUtilities {
      * @return The response sent by the server.
      */
     public static Response getSequenceResponse(Server refgetServer, String id){
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + id);
+        String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id);
         return request.GET(finalEndpoint);
     }
 
@@ -102,7 +102,7 @@ public class RefgetUtilities {
      * @return The response sent by the server.
      */
     public static Response getSequenceResponse(Server refgetServer, String id, Integer start, Integer end){
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + id);
+        String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id);
         Map<String, String> parameterMap = new HashMap<>();
         if(start != null) {
             parameterMap.put("start", start.toString());
@@ -121,7 +121,17 @@ public class RefgetUtilities {
      * @return The response sent by the server.
      */
     public static Response getSequenceResponse(Server refgetServer, String id, Map<String, String> headerMap){
-        String finalEndpoint = refgetServer.getEndpoint("/sequence/" + id);
+        String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id);
+        return request.GETWithHeaders(finalEndpoint, headerMap);
+    }
+
+    public static Response getServiceInfoResponse(Server refgetServer){
+        String finalEndpoint = refgetServer.getEndpoint(Constants.INFO_ENDPOINT);
+        return request.GET(finalEndpoint);
+    }
+
+    public static Response getServiceInfoResponse(Server refgetServer, Map<String, String> headerMap){
+        String finalEndpoint = refgetServer.getEndpoint(Constants.INFO_ENDPOINT);
         return request.GETWithHeaders(finalEndpoint, headerMap);
     }
 }
