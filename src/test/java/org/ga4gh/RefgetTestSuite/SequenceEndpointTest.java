@@ -311,7 +311,7 @@ public class SequenceEndpointTest {
         Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
     }
 
-    @Test
+    /*@Test
     public void getCircularSequenceWithoutCircularSupportErrorCases() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
         Sequence validCircSeq = RefgetUtilities.getValidCircularSequenceObject();
@@ -327,7 +327,7 @@ public class SequenceEndpointTest {
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 501);
-    }
+    }*/
 
     @Test
     public void getInvalidSequence() {
