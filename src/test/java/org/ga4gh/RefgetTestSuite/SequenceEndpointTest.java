@@ -1,6 +1,7 @@
 package org.ga4gh.RefgetTestSuite;
 
 import io.restassured.response.Response;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.ga4gh.ComplianceFramework.*;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
@@ -32,8 +33,8 @@ public class SequenceEndpointTest {
     private Server refgetServer = new Server("http://refget.herokuapp.com");
 
     @Test
-    public void getValidSequence() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequence() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5());
@@ -44,8 +45,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceSha512() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceSha512() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getSha512());
@@ -56,20 +57,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidCircularSequence() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
-
-        //firing request
-        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
-
-        //testing
-        Assert.assertTrue(TestingFramework.checkSuccess(response));
-        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
-    }
-
-    @Test
-    public void getValidSequenceWithStartParameter() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithStartParameter() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, null);
@@ -80,8 +69,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceWithStartAndEndParameter() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithStartAndEndParameter() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
@@ -92,8 +81,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceWithStartAndEndParameterCases() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithStartAndEndParameterSuccessCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         List<Triple<Integer, Integer, Integer>> testCases = new ArrayList<>();
         testCases.add(Triple.of(10, 10, 0));
@@ -121,8 +110,47 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceWithHeaders() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithInvalidStartAndEndParameterErrorCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
+
+        List<String> testCases = new ArrayList<>();
+        testCases.add("?start=abc&end=20");
+        testCases.add("?start=-10&end=-29");
+        testCases.add("?start=abc");
+
+
+        for (String testCase : testCases) {
+            //firing requests
+            String id = validSeq.getMd5();
+            Response response = RefgetUtilities.getSequenceResponse(refgetServer, id + testCase);
+
+            //testing
+            Assert.assertEquals(TestingFramework.getStatusCode(response), 400);
+        }
+    }
+
+    @Test
+    public void getSequenceWithOutOfBoundStartAndEndParameterErrorCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("NC");
+
+        List<Pair<Integer, Integer>> testCases = new ArrayList<>();
+        testCases.add(Pair.of(67, 5387));
+        testCases.add(Pair.of(5386, 5375));
+        testCases.add(Pair.of(5386, 5386));
+        testCases.add(Pair.of(5386, 5));
+
+        for (Pair<Integer, Integer> testCase : testCases) {
+            //firing requests
+            Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getRight());
+
+            //testing
+            Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
+        }
+    }
+
+    @Test
+    public void getSequenceWithHeaders() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Accept", Constants.SEQUENCE_ACCEPT_HEADER);
@@ -136,8 +164,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceWithInvalidHeaders() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithInvalidHeaders() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Accept", "invalid/accept_header");
@@ -151,8 +179,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceWithRangeHeaders() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithRangeHeaders() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Accept", Constants.SEQUENCE_ACCEPT_HEADER);
@@ -168,8 +196,8 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidSequenceWithRangeHeadersCases() throws IOException, ParseException {
-        Sequence validSeq = RefgetUtilities.getValidSequenceObject();
+    public void getSequenceWithRangeHeadersSuccessCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         List<Triple<Integer, Integer, Integer>> testCases = new ArrayList<>();
         testCases.add(Triple.of(10, 19, 10));
@@ -196,7 +224,70 @@ public class SequenceEndpointTest {
     }
 
     @Test
-    public void getValidCircularSequenceCases() throws IOException, ParseException {
+    public void getSequenceWithInvalidRangeHeadersErrorCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
+
+        List<String> testCases = new ArrayList<>();
+        testCases.add("units=20-30");
+        testCases.add("bytes=ab-19");
+        testCases.add("bytes=-10--19");
+        testCases.add("bytes=10--19");
+        testCases.add("bytes=-10-");
+        testCases.add("bytes==10-19");
+
+
+        for (String testCase : testCases) {
+            Map<String, String> headerMap = new HashMap<>();
+            headerMap.put("Accept", Constants.SEQUENCE_ACCEPT_HEADER);
+            headerMap.put("Range", testCase);
+
+            //firing request
+            Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+
+            //testing
+            Assert.assertEquals(TestingFramework.getStatusCode(response), 400);
+        }
+    }
+
+    @Test
+    public void getSequenceWithOutOfBoundRangeHeadersErrorCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("NC");
+
+        List<Pair<Integer, Integer>> testCases = new ArrayList<>();
+        testCases.add(Pair.of(5200, 19));
+        testCases.add(Pair.of(59, 50));
+        testCases.add(Pair.of(5385, 5382));
+        testCases.add(Pair.of(5387, 5391));
+        testCases.add(Pair.of(5386, 5387));
+        testCases.add(Pair.of(9999, 99999));
+
+        for (Pair<Integer, Integer> testCase : testCases) {
+            Map<String, String> headerMap = new HashMap<>();
+            headerMap.put("Accept", Constants.SEQUENCE_ACCEPT_HEADER);
+            headerMap.put("Range", "bytes=" + testCase.getLeft() + "-" + testCase.getRight());
+
+            //firing request
+            Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+
+            //testing
+            Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
+        }
+    }
+
+    @Test
+    public void getCircularSequence() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
+
+        //firing request
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
+
+        //testing
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
+    }
+
+    @Test
+    public void getCircularSequenceSuccessCases() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
 
         List<Triple<Integer, Integer, Integer>> testCases = new ArrayList<>();
@@ -212,6 +303,35 @@ public class SequenceEndpointTest {
             Assert.assertTrue(TestingFramework.checkSuccess(response));
             Assert.assertEquals((Integer)TestingFramework.getBodyString(response).length(), testCase.getRight());
         }
+    }
+
+    @Test
+    public void getCircularSequenceWithCircularSupportErrorCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
+
+        //firing request
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 220218, 671);
+
+        //testing
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
+    }
+
+    @Test
+    public void getCircularSequenceWithoutCircularSupportErrorCases() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
+        Sequence validCircSeq = RefgetUtilities.getValidCircularSequenceObject();
+
+        //firing request
+        Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 220218, 671);
+
+        //testing
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 501);
+
+        //firing request
+        response = RefgetUtilities.getSequenceResponse(refgetServer, validCircSeq.getMd5(), 20, 4);
+
+        //testing
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 501);
     }
 
     @Test

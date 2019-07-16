@@ -64,8 +64,8 @@ public class RefgetUtilities {
      * @throws IOException if there are errors while reading the file.
      * @throws ParseException if there are errors in converting the file to a JSONObject. Can occur if file does not follow proper JSON syntax.
      */
-    public static Sequence getValidSequenceObject() throws IOException, ParseException {
-        JSONObject seqChecksumObj = readChecksumsJSON("I");
+    public static Sequence getValidSequenceObject(String seq) throws IOException, ParseException {
+        JSONObject seqChecksumObj = readChecksumsJSON(seq);
         log.debug("Extracted JSONObject: " + seqChecksumObj);
         return new Sequence(seqChecksumObj);
     }
