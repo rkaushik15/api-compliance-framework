@@ -105,4 +105,16 @@ public class InfoEndpointTest {
         Assert.assertTrue(TestingFramework.checkSuccess(response));
         Assert.assertTrue(flag);
     }
+
+    @Test
+    public void getServiceInfoWithInvalidHeader(){
+        Map<String, String> headerMap = new HashMap<>();
+        headerMap.put("Accept", "dummy_header");
+
+        //firing request
+        Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
+
+        //testing
+        Assert.assertEquals(TestingFramework.getStatusCode(response), 406);
+    }
 }
