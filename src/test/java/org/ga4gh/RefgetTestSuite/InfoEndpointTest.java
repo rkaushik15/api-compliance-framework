@@ -1,16 +1,13 @@
 package org.ga4gh.RefgetTestSuite;
 
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
 import org.ga4gh.ComplianceFramework.TestingFramework;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
-import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
