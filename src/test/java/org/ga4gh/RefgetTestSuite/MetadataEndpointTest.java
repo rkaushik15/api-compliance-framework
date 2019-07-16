@@ -153,4 +153,18 @@ public class MetadataEndpointTest {
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 406);
     }
+
+    @Test
+    public void getMetadataResponseCheck(){
+        Map<String, String> headerMap = new HashMap<>();
+        headerMap.put("Accept", Constants.METADATA_ACCEPT_HEADER);
+
+        //firing request
+        Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
+
+        //testing
+        Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertTrue(TestingFramework.checkHeaderPresent(response,"Content-Type"));
+        Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Type", Constants.METADATA_RESPONSE_CONTENT_TYPE_HEADER));
+    }
 }

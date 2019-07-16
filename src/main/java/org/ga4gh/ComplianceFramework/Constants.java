@@ -16,6 +16,7 @@ public class Constants {
     public final static String SEQUENCE_ACCEPT_HEADER = "text/vnd.ga4gh.refget.v1.0.0+plain";
     public final static String INFO_ACCEPT_HEADER = "application/vnd.ga4gh.refget.v1.0.0+json";
     public final static String METADATA_ACCEPT_HEADER = "application/vnd.ga4gh.refget.v1.0.0+json";
+    public final static String METADATA_RESPONSE_CONTENT_TYPE_HEADER = "application/vnd.ga4gh.refget.v1.0.0+json";
 
     public final static String INFO_ENDPOINT = "/sequence/service-info";
     public final static String METADATA_ENDPOINT = "/metadata";
