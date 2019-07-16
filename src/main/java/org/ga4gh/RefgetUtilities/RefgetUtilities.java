@@ -134,4 +134,14 @@ public class RefgetUtilities {
         String finalEndpoint = refgetServer.getEndpoint(Constants.INFO_ENDPOINT);
         return request.GETWithHeaders(finalEndpoint, headerMap);
     }
+
+    public static Response getMetadataResponse(Server refgetServer, String id){
+        String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id + Constants.METADATA_ENDPOINT);
+        return request.GET(finalEndpoint);
+    }
+
+    public static Response getMetadataResponse(Server refgetServer, String id, Map<String, String> headerMap){
+        String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id + Constants.METADATA_ENDPOINT);
+        return request.GETWithHeaders(finalEndpoint, headerMap);
+    }
 }

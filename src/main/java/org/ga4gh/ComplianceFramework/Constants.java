@@ -15,7 +15,13 @@ public class Constants {
 
     public final static String SEQUENCE_ACCEPT_HEADER = "text/vnd.ga4gh.refget.v1.0.0+plain";
     public final static String INFO_ACCEPT_HEADER = "application/vnd.ga4gh.refget.v1.0.0+json";
+    public final static String METADATA_ACCEPT_HEADER = "application/vnd.ga4gh.refget.v1.0.0+json";
 
     public final static String INFO_ENDPOINT = "/sequence/service-info";
+    public final static String METADATA_ENDPOINT = "/metadata";
     public final static String SEQUENCE_ENDPOINT = "/sequence/";
+
+    public final static String NON_CIRCULAR_SEQUENCE_MD5 = "6681ac2f62509cfc220d78751b8dc524";
+    public final static String NON_CIRCULAR_SEQUENCE_SHA512 = "959cb1883fc1ca9ae1394ceb475a356ead1ecceff5824ae7";
+    public final static String CIRCULAR_SEQUENCE_MD5 = "3332ed720ac7eaa9b3655c06f6b9e196";
 }
