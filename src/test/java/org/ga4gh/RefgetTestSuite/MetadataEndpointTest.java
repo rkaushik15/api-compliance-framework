@@ -5,12 +5,9 @@ import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
 import org.ga4gh.ComplianceFramework.TestingFramework;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
-import org.ga4gh.RefgetUtilities.Sequence;
-import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
