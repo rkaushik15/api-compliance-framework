@@ -83,7 +83,7 @@ public class RefgetUtilities {
     }
 
     /**
-     * Method to return a fire a GET request to a refget server and return the sequence.
+     * Method to fire a GET request to a refget server and return the sequence.
      * @param refgetServer The server object of the server that will receive the request.
      * @param id The id/hash of the sequence to be retrieved.
      * @return The response sent by the server.
@@ -94,7 +94,7 @@ public class RefgetUtilities {
     }
 
     /**
-     * Method to return a fire a GET request to a refget server and return the sequence (sub-sequence also supported).
+     * Method to fire a GET request to a refget server and return the sequence (sub-sequence also supported).
      * @param refgetServer The server object of the server that will receive the request.
      * @param id The id/hash of the sequence to be retrieved.
      * @param start The value of the 'start' parameter of sub-sequence.
@@ -114,10 +114,10 @@ public class RefgetUtilities {
     }
 
     /**
-     * Method to return a fire a GET request with headers to a refget server and return the sequence.
+     * Method to fire a GET request with headers to a refget server and return the sequence.
      * @param refgetServer The server object of the server that will receive the request.
      * @param id The id/hash of the sequence to be retrieved.
-     * @param headerMap The headers to be sent with the request..
+     * @param headerMap The headers to be sent with the request.
      * @return The response sent by the server.
      */
     public static Response getSequenceResponse(Server refgetServer, String id, Map<String, String> headerMap){
@@ -125,21 +125,45 @@ public class RefgetUtilities {
         return request.GETWithHeaders(finalEndpoint, headerMap);
     }
 
+    /**
+     * Method to fire a GET request to a refget server and return the service info json.
+     * @param refgetServer The server object of the server that will receive the request.
+     * @return The response sent by the server.
+     */
     public static Response getServiceInfoResponse(Server refgetServer){
         String finalEndpoint = refgetServer.getEndpoint(Constants.INFO_ENDPOINT);
         return request.GET(finalEndpoint);
     }
 
+    /**
+     * Method to fire a GET request with headers to a refget server and return the service info json.
+     * @param refgetServer The server object of the server that will receive the request.
+     * @param headerMap The headers to be sent with the request.
+     * @return The response sent by the server.
+     */
     public static Response getServiceInfoResponse(Server refgetServer, Map<String, String> headerMap){
         String finalEndpoint = refgetServer.getEndpoint(Constants.INFO_ENDPOINT);
         return request.GETWithHeaders(finalEndpoint, headerMap);
     }
 
+    /**
+     * Method to fire a GET request to a refget server and return the metadata of sequence.
+     * @param refgetServer The server object of the server that will receive the request.
+     * @param id The id/hash of the sequence whose metadata is to be retrieved.
+     * @return The response sent by the server.
+     */
     public static Response getMetadataResponse(Server refgetServer, String id){
         String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id + Constants.METADATA_ENDPOINT);
         return request.GET(finalEndpoint);
     }
 
+    /**
+     * Method to fire a GET request with headers to a refget server and return the metadata of sequence.
+     * @param refgetServer The server object of the server that will receive the request.
+     * @param id The id/hash of the sequence whose metadata is to be retrieved.
+     * @param headerMap The headers to be sent with the request.
+     * @return The response sent by the server.
+     */
     public static Response getMetadataResponse(Server refgetServer, String id, Map<String, String> headerMap){
         String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id + Constants.METADATA_ENDPOINT);
         return request.GETWithHeaders(finalEndpoint, headerMap);
