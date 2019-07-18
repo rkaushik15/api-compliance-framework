@@ -4,8 +4,10 @@ import io.restassured.response.Response;
 import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
 import org.ga4gh.ComplianceFramework.TestingFramework;
+import org.ga4gh.RefgetUtilities.RefgetSession;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -16,7 +18,12 @@ public class InfoEndpointTest {
     /**
      * The server instance.
      */
-    private Server refgetServer = new Server("http://refget.herokuapp.com");
+    private Server refgetServer;
+
+    @BeforeClass
+    public void setRefgetServer(){
+        refgetServer = RefgetSession.getRefgetServer();
+    }
 
     @Test
     public void getServiceInfo(){

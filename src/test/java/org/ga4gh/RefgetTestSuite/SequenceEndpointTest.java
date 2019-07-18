@@ -4,10 +4,12 @@ import io.restassured.response.Response;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.ga4gh.ComplianceFramework.*;
+import org.ga4gh.RefgetUtilities.RefgetSession;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
 import org.ga4gh.RefgetUtilities.Sequence;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -25,7 +27,12 @@ public class SequenceEndpointTest {
     /**
      * The server instance.
      */
-    private Server refgetServer = new Server("http://refget.herokuapp.com");
+    private Server refgetServer;
+
+    @BeforeClass
+    public void setRefgetServer(){
+        refgetServer = RefgetSession.getRefgetServer();
+    }
 
     @Test
     public void getSequence() throws IOException, ParseException {
