@@ -2,6 +2,7 @@ package org.ga4gh.RefgetUtilities;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
 
 import java.util.ArrayList;
@@ -17,10 +18,10 @@ public class RefgetSession {
         JsonPath serviceInfoResponse = RefgetUtilities.getServiceInfoResponse(refgetServer).jsonPath();
 
         Map<String, Object> properties = new HashMap<>();
-        properties.put("circular_supported", serviceInfoResponse.get("service.circular_supported"));
-        properties.put("algorithms", serviceInfoResponse.get("service.algorithms"));
-        properties.put("subsequence_limit", serviceInfoResponse.get("service.subsequence_limit"));
-        properties.put("supported_api_versions", serviceInfoResponse.get("service.supported_api_versions"));
+        properties.put(Constants.REFGET_PROPERTY_CIRCULAR_SUPPORTED, serviceInfoResponse.get(Constants.REFGET_PROPERTY_SERVICE+ "." + Constants.REFGET_PROPERTY_CIRCULAR_SUPPORTED));
+        properties.put(Constants.REFGET_PROPERTY_ALGORITHMS, serviceInfoResponse.get(Constants.REFGET_PROPERTY_SERVICE+ "." + Constants.REFGET_PROPERTY_ALGORITHMS));
+        properties.put(Constants.REFGET_PROPERTY_SUBSEQUENCE_LIMIT, serviceInfoResponse.get(Constants.REFGET_PROPERTY_SERVICE+ "." + Constants.REFGET_PROPERTY_SUBSEQUENCE_LIMIT));
+        properties.put(Constants.REFGET_PROPERTY_SUPPORTED_API_VERSION, serviceInfoResponse.get(Constants.REFGET_PROPERTY_SERVICE+ "." + Constants.REFGET_PROPERTY_SUPPORTED_API_VERSION));
 
         refgetServer.setServerProperties(properties);
     }
