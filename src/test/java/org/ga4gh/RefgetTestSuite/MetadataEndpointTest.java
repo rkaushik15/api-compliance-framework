@@ -79,7 +79,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("md5");
+        boolean flag = serviceJson.containsKey("md5");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -95,7 +95,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("trunc512");
+        boolean flag = serviceJson.containsKey("trunc512");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -111,7 +111,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("length");
+        boolean flag = serviceJson.containsKey("length");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -127,7 +127,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("aliases");
+        boolean flag = serviceJson.containsKey("aliases");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));

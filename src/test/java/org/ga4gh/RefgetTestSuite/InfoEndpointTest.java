@@ -55,7 +55,7 @@ public class InfoEndpointTest {
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("service");
-        Boolean flag = serviceJson.containsKey("circular_supported");
+        boolean flag = serviceJson.containsKey("circular_supported");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -71,7 +71,7 @@ public class InfoEndpointTest {
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("service");
-        Boolean flag = serviceJson.containsKey("algorithms");
+        boolean flag = serviceJson.containsKey("algorithms");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -87,7 +87,7 @@ public class InfoEndpointTest {
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("service");
-        Boolean flag = serviceJson.containsKey("subsequence_limit");
+        boolean flag = serviceJson.containsKey("subsequence_limit");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -103,7 +103,7 @@ public class InfoEndpointTest {
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("service");
-        Boolean flag = serviceJson.containsKey("supported_api_versions");
+        boolean flag = serviceJson.containsKey("supported_api_versions");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
