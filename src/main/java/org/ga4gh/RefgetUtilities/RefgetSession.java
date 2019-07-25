@@ -1,11 +1,9 @@
 package org.ga4gh.RefgetUtilities;
 
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
