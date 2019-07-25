@@ -9,10 +9,12 @@ import org.ga4gh.RefgetUtilities.RefgetUtilities;
 import org.ga4gh.RefgetUtilities.Sequence;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,10 @@ public class SequenceEndpointTest {
 
     @Test
     public void getSequenceSha512() throws IOException, ParseException {
+        ArrayList algorithms = (ArrayList) refgetServer.getServerProperties().get(Constants.REFGET_PROPERTY_ALGORITHMS);
+        if(!algorithms.contains("trunc512"))
+            throw new SkipException("Test skipped as server does not support the algorithm");
+
         Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         //firing request
@@ -278,6 +284,10 @@ public class SequenceEndpointTest {
 
     @Test
     public void getCircularSequence() throws IOException, ParseException {
+        boolean circular = (boolean) refgetServer.getServerProperties().get(Constants.REFGET_PROPERTY_CIRCULAR_SUPPORTED);
+        if(!circular)
+            throw new SkipException("Test skipped as server does not support circular sequences");
+
         Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
 
         //firing request
@@ -290,6 +300,10 @@ public class SequenceEndpointTest {
 
     @Test
     public void getCircularSequenceSuccessCases() throws IOException, ParseException {
+        boolean circular = (boolean) refgetServer.getServerProperties().get(Constants.REFGET_PROPERTY_CIRCULAR_SUPPORTED);
+        if(!circular)
+            throw new SkipException("Test skipped as server does not support circular sequences");
+
         Sequence validSeq = RefgetUtilities.getValidCircularSequenceObject();
 
         List<Triple<Integer, Integer, Integer>> testCases = new ArrayList<>();
@@ -309,6 +323,10 @@ public class SequenceEndpointTest {
 
     @Test
     public void getCircularSequenceWithCircularSupportErrorCases() throws IOException, ParseException {
+        boolean circular = (boolean) refgetServer.getServerProperties().get(Constants.REFGET_PROPERTY_CIRCULAR_SUPPORTED);
+        if(!circular)
+            throw new SkipException("Test skipped as server does not support circular sequences");
+
         Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
 
         //firing request
@@ -318,8 +336,12 @@ public class SequenceEndpointTest {
         Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
     }
 
-    /*@Test
+    @Test
     public void getCircularSequenceWithoutCircularSupportErrorCases() throws IOException, ParseException {
+        boolean circular = (boolean) refgetServer.getServerProperties().get(Constants.REFGET_PROPERTY_CIRCULAR_SUPPORTED);
+        if(circular)
+            throw new SkipException("Test skipped as server supports circular sequences");
+
         Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
         Sequence validCircSeq = RefgetUtilities.getValidCircularSequenceObject();
 
@@ -334,7 +356,7 @@ public class SequenceEndpointTest {
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 501);
-    }*/
+    }
 
     @Test
     public void getInvalidSequence() {
