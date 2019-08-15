@@ -7,11 +7,14 @@ import org.ga4gh.ComplianceFramework.*;
 import org.ga4gh.RefgetUtilities.RefgetSession;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
 import org.ga4gh.RefgetUtilities.Sequence;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,10 +32,47 @@ public class SequenceEndpointTest {
      * The server instance.
      */
     private Server refgetServer;
+    private JSONArray classArray = new JSONArray();
+    private JSONObject tempTestObject = new JSONObject();
+    private JSONArray tempQueryArray = new JSONArray();
+
 
     @BeforeClass
-    public void setRefgetServer(){
+    public void setRefgetServer(ITestContext context){
         refgetServer = RefgetSession.getRefgetServer();
+        context.setAttribute("sequence_result", 1);
+    }
+
+    @AfterClass
+    public void setOverview(ITestContext context){
+        JSONObject summaryObject = new JSONObject();
+        summaryObject.put("name", "Sequence");
+        summaryObject.put("result", context.getAttribute("sequence_result"));
+
+        ((JSONObject) RefgetSession.testObject.get("summary")).put("sequence", summaryObject);
+        ((JSONObject) RefgetSession.testObject.get("test_results")).put("sequence", classArray);
+    }
+
+    @BeforeMethod
+    public void clear(){
+        tempTestObject = new JSONObject();
+        tempQueryArray = new JSONArray();
+    }
+
+    @AfterMethod
+    public void setResults(ITestResult result, ITestContext context){
+        tempTestObject.put("test_name", result.getName());
+        tempTestObject.put("parent", this.getClass().getSimpleName());
+        tempTestObject.put("api_query_info", tempQueryArray);
+        if(result.getStatus() == ITestResult.SUCCESS)
+            tempTestObject.put("result", 1);
+        else if(result.getStatus() == ITestResult.SKIP)
+            tempTestObject.put("result", 0);
+        else if(result.getStatus() == ITestResult.FAILURE) {
+            tempTestObject.put("result", -1);
+            context.setAttribute("sequence_result", 0);
+        }
+        classArray.add(tempTestObject);
     }
 
     @Test
@@ -41,6 +81,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5());
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -57,6 +98,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getSha512());
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -69,6 +111,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, null);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -81,6 +124,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -108,6 +152,7 @@ public class SequenceEndpointTest {
         for (Triple<Integer, Integer, Integer> testCase : testCases) {
             //firing requests
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getMiddle());
+            tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
 
             //testing
             Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -130,6 +175,7 @@ public class SequenceEndpointTest {
             //firing requests
             String id = validSeq.getMd5();
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, id + testCase);
+            tempQueryArray.add("Response (" + testCase + "): " + response.getBody().asString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 400);
@@ -149,6 +195,7 @@ public class SequenceEndpointTest {
         for (Pair<Integer, Integer> testCase : testCases) {
             //firing requests
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getRight());
+            tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
@@ -164,6 +211,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -179,6 +227,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertFalse(TestingFramework.checkSuccess(response));
@@ -195,6 +244,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 206);
@@ -222,6 +272,7 @@ public class SequenceEndpointTest {
 
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+            tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 206);
@@ -250,6 +301,7 @@ public class SequenceEndpointTest {
 
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+            tempQueryArray.add("Response (" + testCase + "): " + response.getBody().asString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 400);
@@ -275,6 +327,7 @@ public class SequenceEndpointTest {
 
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
+            tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
@@ -291,6 +344,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 0, validSeq.getSequence().length());
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -313,6 +367,7 @@ public class SequenceEndpointTest {
         for (Triple<Integer, Integer, Integer> testCase : testCases) {
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), testCase.getLeft(), testCase.getMiddle());
+            tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
 
             //testing
             Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -330,6 +385,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 220218, 671);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 416);
@@ -346,12 +402,14 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), 220218, 671);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 501);
 
         //firing request
         response = RefgetUtilities.getSequenceResponse(refgetServer, validCircSeq.getMd5(), 20, 4);
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 501);
@@ -362,6 +420,7 @@ public class SequenceEndpointTest {
 
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, "invalid_seq");
+        tempQueryArray.add("Response: " + response.getBody().asString());
 
         //testing
         Assert.assertFalse(TestingFramework.checkSuccess(response));
