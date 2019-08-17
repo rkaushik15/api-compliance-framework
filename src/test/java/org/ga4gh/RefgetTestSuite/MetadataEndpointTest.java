@@ -4,8 +4,10 @@ import io.restassured.response.Response;
 import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
 import org.ga4gh.ComplianceFramework.TestingFramework;
+import org.ga4gh.RefgetUtilities.RefgetSession;
 import org.ga4gh.RefgetUtilities.RefgetUtilities;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -16,7 +18,12 @@ public class MetadataEndpointTest {
     /**
      * The server instance.
      */
-    private Server refgetServer = new Server("http://refget.herokuapp.com");
+    private Server refgetServer;
+
+    @BeforeClass
+    public void setRefgetServer(){
+        refgetServer = RefgetSession.getRefgetServer();
+    }
 
     @Test
     public void getSequenceMetadata() {
@@ -72,7 +79,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("md5");
+        boolean flag = serviceJson.containsKey("md5");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -88,7 +95,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("trunc512");
+        boolean flag = serviceJson.containsKey("trunc512");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -104,7 +111,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("length");
+        boolean flag = serviceJson.containsKey("length");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -120,7 +127,7 @@ public class MetadataEndpointTest {
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
 
         HashMap serviceJson = response.jsonPath().get("metadata");
-        Boolean flag = serviceJson.containsKey("aliases");
+        boolean flag = serviceJson.containsKey("aliases");
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
