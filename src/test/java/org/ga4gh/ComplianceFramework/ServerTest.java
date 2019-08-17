@@ -14,14 +14,15 @@ public class ServerTest {
 
 
     @Test
-    public void serverUrlTest() {
+    public void getServerUrlTest() {
         Server server = new Server(url);
 
         Assert.assertEquals(server.getBaseUrl(), url);
+        Assert.assertEquals(server.getEndpoint("/test"), url + "/test");
     }
 
     @Test
-    public void serverUrlPropertiesTest() {
+    public void getUrlPropertiesTest() {
         Server server = new Server(url, properties);
 
         Assert.assertEquals(server.getBaseUrl(), url);
@@ -38,7 +39,7 @@ public class ServerTest {
     }
 
     @Test
-    public void serverSetAndRetrieveTest() {
+    public void setAndGetServerTest() {
         Server server = new Server(url);
 
         server.setBaseUrl(url2);
