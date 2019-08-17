@@ -25,4 +25,10 @@ public class Constants {
     public final static String NON_CIRCULAR_SEQUENCE_MD5 = "6681ac2f62509cfc220d78751b8dc524";
     public final static String NON_CIRCULAR_SEQUENCE_SHA512 = "959cb1883fc1ca9ae1394ceb475a356ead1ecceff5824ae7";
     public final static String CIRCULAR_SEQUENCE_MD5 = "3332ed720ac7eaa9b3655c06f6b9e196";
+
+    public final static String REFGET_PROPERTY_CIRCULAR_SUPPORTED = "circular_supported";
+    public final static String REFGET_PROPERTY_ALGORITHMS = "algorithms";
+    public final static String REFGET_PROPERTY_SUBSEQUENCE_LIMIT = "subsequence_limit";
+    public final static String REFGET_PROPERTY_SUPPORTED_API_VERSION= "supported_api_versions";
+    public final static String REFGET_PROPERTY_SERVICE = "service";
 }

@@ -2,10 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 
-<suite name="Suite">
-    <test name="TestAll">
-        <packages>
-            <package name="org.ga4gh.ComplianceFramework" />
-        </packages>
+<suite name="Suite1">
+    <test name="RefgetSuite">
+        <classes>
+            <class name="org.ga4gh.RefgetTestSuite.RefgetBaseTest"/>
+            <class name="org.ga4gh.RefgetTestSuite.SequenceEndpointTest"/>
+            <class name="org.ga4gh.RefgetTestSuite.MetadataEndpointTest"/>
+            <class name="org.ga4gh.RefgetTestSuite.InfoEndpointTest"/>
+        </classes>
     </test>
 </suite>
