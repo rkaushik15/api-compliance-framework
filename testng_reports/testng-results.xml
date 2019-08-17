@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="20" passed="20">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Suite" duration-ms="5521" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:49Z">
+    <groups>
+    </groups>
+    <test name="TestAll" duration-ms="5521" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:49Z">
+      <class name="org.ga4gh.ComplianceFramework.ServerTest">
+        <test-method status="PASS" signature="getServerPropertyTest()[pri:0, instance:org.ga4gh.ComplianceFramework.ServerTest@2d1ef81a]" name="getServerPropertyTest" duration-ms="20" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getServerPropertyTest -->
+        <test-method status="PASS" signature="getServerUrlTest()[pri:0, instance:org.ga4gh.ComplianceFramework.ServerTest@2d1ef81a]" name="getServerUrlTest" duration-ms="1" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getServerUrlTest -->
+        <test-method status="PASS" signature="getUrlPropertiesTest()[pri:0, instance:org.ga4gh.ComplianceFramework.ServerTest@2d1ef81a]" name="getUrlPropertiesTest" duration-ms="1" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getUrlPropertiesTest -->
+        <test-method status="PASS" signature="setAndGetServerTest()[pri:0, instance:org.ga4gh.ComplianceFramework.ServerTest@2d1ef81a]" name="setAndGetServerTest" duration-ms="6" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setAndGetServerTest -->
+      </class> <!-- org.ga4gh.ComplianceFramework.ServerTest -->
+      <class name="org.ga4gh.ComplianceFramework.TestingFrameworkTest">
+        <test-method status="PASS" signature="initializeMockServer()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="initializeMockServer" is-config="true" duration-ms="1622" started-at="2019-08-17T18:23:43Z" finished-at="2019-08-17T18:23:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initializeMockServer -->
+        <test-method status="PASS" signature="checkHeaderPresentTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="checkHeaderPresentTest" duration-ms="1555" started-at="2019-08-17T18:23:45Z" finished-at="2019-08-17T18:23:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkHeaderPresentTest -->
+        <test-method status="PASS" signature="checkSuccessTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="checkSuccessTest" duration-ms="101" started-at="2019-08-17T18:23:47Z" finished-at="2019-08-17T18:23:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkSuccessTest -->
+        <test-method status="PASS" signature="getBodyJsonTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="getBodyJsonTest" duration-ms="596" started-at="2019-08-17T18:23:47Z" finished-at="2019-08-17T18:23:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getBodyJsonTest -->
+        <test-method status="PASS" signature="getBodyStringTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="getBodyStringTest" duration-ms="53" started-at="2019-08-17T18:23:47Z" finished-at="2019-08-17T18:23:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getBodyStringTest -->
+        <test-method status="PASS" signature="getBodyXmlTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="getBodyXmlTest" duration-ms="145" started-at="2019-08-17T18:23:47Z" finished-at="2019-08-17T18:23:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getBodyXmlTest -->
+        <test-method status="PASS" signature="getStatusCodeTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="getStatusCodeTest" duration-ms="52" started-at="2019-08-17T18:23:47Z" finished-at="2019-08-17T18:23:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getStatusCodeTest -->
+        <test-method status="PASS" signature="getStatusMessageTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="getStatusMessageTest" duration-ms="54" started-at="2019-08-17T18:23:47Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getStatusMessageTest -->
+        <test-method status="PASS" signature="validateResponseBodyWithLocalFileTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="validateResponseBodyWithLocalFileTest" duration-ms="99" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateResponseBodyWithLocalFileTest -->
+        <test-method status="PASS" signature="validateResponseHeaderTest()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="validateResponseHeaderTest" duration-ms="40" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateResponseHeaderTest -->
+        <test-method status="PASS" signature="shutMockServer()[pri:0, instance:org.ga4gh.ComplianceFramework.TestingFrameworkTest@4c402120]" name="shutMockServer" is-config="true" duration-ms="19" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shutMockServer -->
+      </class> <!-- org.ga4gh.ComplianceFramework.TestingFrameworkTest -->
+      <class name="org.ga4gh.ComplianceFramework.RequestsRestAssuredTest">
+        <test-method status="PASS" signature="initializeMockServer()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="initializeMockServer" is-config="true" duration-ms="399" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initializeMockServer -->
+        <test-method status="PASS" signature="DELETETest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="DELETETest" duration-ms="78" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DELETETest -->
+        <test-method status="PASS" signature="GETTest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="GETTest" duration-ms="49" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GETTest -->
+        <test-method status="PASS" signature="GETWithHeadersAndQueryParamsTest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="GETWithHeadersAndQueryParamsTest" duration-ms="313" started-at="2019-08-17T18:23:48Z" finished-at="2019-08-17T18:23:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GETWithHeadersAndQueryParamsTest -->
+        <test-method status="PASS" signature="GETWithHeadersTest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="GETWithHeadersTest" duration-ms="47" started-at="2019-08-17T18:23:49Z" finished-at="2019-08-17T18:23:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GETWithHeadersTest -->
+        <test-method status="PASS" signature="GETWithQueryParamsTest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="GETWithQueryParamsTest" duration-ms="77" started-at="2019-08-17T18:23:49Z" finished-at="2019-08-17T18:23:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GETWithQueryParamsTest -->
+        <test-method status="PASS" signature="POSTTest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="POSTTest" duration-ms="53" started-at="2019-08-17T18:23:49Z" finished-at="2019-08-17T18:23:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- POSTTest -->
+        <test-method status="PASS" signature="PUTTest()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="PUTTest" duration-ms="49" started-at="2019-08-17T18:23:49Z" finished-at="2019-08-17T18:23:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PUTTest -->
+        <test-method status="PASS" signature="shutMockServer()[pri:0, instance:org.ga4gh.ComplianceFramework.RequestsRestAssuredTest@327514f]" name="shutMockServer" is-config="true" duration-ms="9" started-at="2019-08-17T18:23:49Z" finished-at="2019-08-17T18:23:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shutMockServer -->
+      </class> <!-- org.ga4gh.ComplianceFramework.RequestsRestAssuredTest -->
+    </test> <!-- TestAll -->
+  </suite> <!-- Suite -->
+</testng-results>

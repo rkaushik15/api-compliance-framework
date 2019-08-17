@@ -96,7 +96,7 @@ public class TestingFramework {
     /**
      * Method to compare a response body to a local file and validate if both are same.
      * @param response The response sent by the server. The body of this response needs to be validated against a local file.
-     * @param filename The name of the file which contains the expected response body for validation.
+     * @param filename The name of the file which contains the expected response body for validation, file should be in resources dir.
      * @return true or false depending on whether the response body is same as contents of the file or not.
      */
     public static boolean validateResponseBodyWithLocalFile(Response response, String filename) throws IOException {

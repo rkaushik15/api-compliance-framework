@@ -26,7 +26,7 @@ public class Utilities {
         while ((line = reader.readLine()) != null) {
             sb.append(line + "\n");
         }
-
+        sb.setLength(sb.length() - 1);
         return sb.toString();
     }
 }
