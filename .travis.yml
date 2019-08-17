@@ -1,3 +1,5 @@
+env: 
+  - CODECOV_TOKEN="cf74e460-5c63-49c7-b471-82f85e4b550c"
 language: java
 dist: trusty
 jdk:
@@ -5,6 +7,6 @@ jdk:
   - oraclejdk9
   - openjdk8
 sudo: false
-script: script.sh
+script: ./script.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
