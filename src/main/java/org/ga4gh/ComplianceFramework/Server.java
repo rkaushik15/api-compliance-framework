@@ -81,6 +81,14 @@ public class Server {
     }
 
     /**
+     * Getter method to retrieve a specific property of the server.
+     * @return the property of the server.
+     */
+    public Object getServerProperty(String property) {
+        return serverProperties.get(property);
+    }
+
+    /**
      * Setter method to set the properties of the server to specific values.
      * @param serverProperties The properties that are to be associated with the server.
      */
