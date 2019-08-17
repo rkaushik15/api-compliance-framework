@@ -1,2 +1,2 @@
 mvn clean verify
-"mvn cobertura:cobertura"
+mvn cobertura:cobertura
