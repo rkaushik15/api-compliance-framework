@@ -11,4 +11,11 @@
             <class name="org.ga4gh.RefgetTestSuite.InfoEndpointTest"/>
         </classes>
     </test>
+    <test name = "FrameworkTest">
+        <classes>
+            <class name="org.ga4gh.ComplianceFramework.RequestsRestAssuredTest"/>
+            <class name="org.ga4gh.ComplianceFramework.ServerTest"/>
+            <class name="org.ga4gh.ComplianceFramework.TestingFrameworkTest"/>
+        </classes>
+    </test>
 </suite>
