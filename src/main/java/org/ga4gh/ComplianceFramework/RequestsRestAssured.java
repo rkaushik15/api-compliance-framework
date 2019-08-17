@@ -30,7 +30,7 @@ public class RequestsRestAssured implements Requests {
         RequestSpecification requestSpecification = RestAssured.given();
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.get(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 
@@ -46,7 +46,7 @@ public class RequestsRestAssured implements Requests {
         requestSpecification.queryParams(parameterMap);
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.get(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 
@@ -62,7 +62,7 @@ public class RequestsRestAssured implements Requests {
         requestSpecification.headers(headerMap);
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.get(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 
@@ -80,7 +80,7 @@ public class RequestsRestAssured implements Requests {
         requestSpecification.queryParams(parameterMap);
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.get(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 
@@ -96,7 +96,7 @@ public class RequestsRestAssured implements Requests {
         requestSpecification.body(body);
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.post(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 
@@ -112,7 +112,7 @@ public class RequestsRestAssured implements Requests {
         requestSpecification.body(body);
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.put(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 
@@ -128,7 +128,7 @@ public class RequestsRestAssured implements Requests {
         requestSpecification.body(body);
         requestSpecification.contentType(ContentType.JSON);
         Response response = requestSpecification.delete(uri);
-        log.debug(requestSpecification.log().all());
+        //log.debug(requestSpecification.log().all());
         return response;
     }
 }
