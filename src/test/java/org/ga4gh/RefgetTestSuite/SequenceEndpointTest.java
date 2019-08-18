@@ -75,6 +75,18 @@ public class SequenceEndpointTest {
         classArray.add(tempTestObject);
     }
 
+    @Test(priority=-1)
+    public void getValidSequenceTest() throws IOException, ParseException {
+        Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
+        Sequence validCircSeq = RefgetUtilities.getValidCircularSequenceObject();
+
+        Assert.assertEquals(validSeq.getName(), "I");
+        Assert.assertEquals(validCircSeq.getName(), "NC");
+
+        Assert.assertFalse(validSeq.isCircular());
+        Assert.assertTrue(validCircSeq.isCircular());
+    }
+
     @Test
     public void getSequence() throws IOException, ParseException {
         Sequence validSeq = RefgetUtilities.getValidSequenceObject("I");
@@ -85,6 +97,7 @@ public class SequenceEndpointTest {
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
+        Assert.assertEquals(TestingFramework.getBodyString(response).length(), (long) validSeq.getSize());
         Assert.assertEquals(TestingFramework.getBodyString(response), validSeq.getSequence());
     }
 
