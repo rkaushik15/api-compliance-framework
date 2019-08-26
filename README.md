@@ -4,7 +4,6 @@ Repository containing my project for Global Alliance for Genomics and Health as 
 
 | Travis CI Status | Code Coverage |
 | ------ | ------|
-
 | [![Build Status](https://travis-ci.org/rkaushik15/api-compliance-framework.svg?branch=master)](https://travis-ci.org/rkaushik15/api-compliance-framework) | [![codecov](https://codecov.io/gh/rkaushik15/api-compliance-framework/branch/master/graph/badge.svg)](https://codecov.io/gh/rkaushik15/api-compliance-framework) |
 
 
@@ -26,7 +25,7 @@ Check if maven is present
 mvn -version
 ```
 
-If maven info is displayed, maven is already present. Else install maven.
+If maven info is displayed, maven is already present. Else install maven:
 
 ```
 sudo apt install maven
@@ -59,6 +58,7 @@ To view the JSON report on terminal, follow these steps:
 # Important URLs (Refget)
 
 [Refget Specification](http://samtools.github.io/hts-specs/refget.html)
+
 [Compliance Document](https://compliancedoc.readthedocs.io/en/latest/)
 
 
