@@ -54,12 +54,18 @@ public class InfoEndpointTest {
         tempTestObject.put("test_name", result.getName());
         tempTestObject.put("parent", this.getClass().getSimpleName());
         tempTestObject.put("api_query_info", tempQueryArray);
-        if(result.getStatus() == ITestResult.SUCCESS)
+        tempTestObject.put("test_description", RefgetUtilities.generateTestDescription(result.getTestName()));
+        if(result.getStatus() == ITestResult.SUCCESS) {
             tempTestObject.put("result", 1);
-        else if(result.getStatus() == ITestResult.SKIP)
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), 1));
+        }
+        else if(result.getStatus() == ITestResult.SKIP) {
             tempTestObject.put("result", 0);
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), 0));
+        }
         else if(result.getStatus() == ITestResult.FAILURE) {
             tempTestObject.put("result", -1);
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), -1));
             context.setAttribute("info_result", 0);
         }
         classArray.add(tempTestObject);
@@ -83,6 +89,7 @@ public class InfoEndpointTest {
         //firing request
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("service");
         boolean flag = serviceJson.containsKey("circular_supported");
@@ -100,6 +107,7 @@ public class InfoEndpointTest {
         //firing request
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("service");
         boolean flag = serviceJson.containsKey("algorithms");
@@ -117,6 +125,7 @@ public class InfoEndpointTest {
         //firing request
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("service");
         boolean flag = serviceJson.containsKey("subsequence_limit");
@@ -134,6 +143,7 @@ public class InfoEndpointTest {
         //firing request
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("service");
         boolean flag = serviceJson.containsKey("supported_api_versions");
@@ -151,6 +161,7 @@ public class InfoEndpointTest {
         //firing request
         Response response = RefgetUtilities.getServiceInfoResponse(refgetServer, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 406);

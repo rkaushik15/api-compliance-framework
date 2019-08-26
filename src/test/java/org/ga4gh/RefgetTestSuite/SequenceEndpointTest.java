@@ -64,14 +64,21 @@ public class SequenceEndpointTest {
         tempTestObject.put("test_name", result.getName());
         tempTestObject.put("parent", this.getClass().getSimpleName());
         tempTestObject.put("api_query_info", tempQueryArray);
-        if(result.getStatus() == ITestResult.SUCCESS)
+        tempTestObject.put("test_description", RefgetUtilities.generateTestDescription(result.getTestName()));
+        if(result.getStatus() == ITestResult.SUCCESS) {
             tempTestObject.put("result", 1);
-        else if(result.getStatus() == ITestResult.SKIP)
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), 1));
+        }
+        else if(result.getStatus() == ITestResult.SKIP) {
             tempTestObject.put("result", 0);
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), 0));
+        }
         else if(result.getStatus() == ITestResult.FAILURE) {
             tempTestObject.put("result", -1);
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), -1));
             context.setAttribute("sequence_result", 0);
         }
+
         classArray.add(tempTestObject);
     }
 
@@ -225,6 +232,7 @@ public class SequenceEndpointTest {
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -241,6 +249,7 @@ public class SequenceEndpointTest {
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertFalse(TestingFramework.checkSuccess(response));
@@ -258,6 +267,7 @@ public class SequenceEndpointTest {
         //firing request
         Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 206);
@@ -286,6 +296,7 @@ public class SequenceEndpointTest {
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
             tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
+            tempQueryArray.add("Request Headers: " + headerMap.toString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 206);
@@ -315,6 +326,7 @@ public class SequenceEndpointTest {
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
             tempQueryArray.add("Response (" + testCase + "): " + response.getBody().asString());
+            tempQueryArray.add("Request Headers: " + headerMap.toString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 400);
@@ -341,6 +353,7 @@ public class SequenceEndpointTest {
             //firing request
             Response response = RefgetUtilities.getSequenceResponse(refgetServer, validSeq.getMd5(), headerMap);
             tempQueryArray.add("Response (" + testCase.toString() + "): " + response.getBody().asString());
+            tempQueryArray.add("Request Headers: " + headerMap.toString());
 
             //testing
             Assert.assertEquals(TestingFramework.getStatusCode(response), 416);

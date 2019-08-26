@@ -54,12 +54,18 @@ public class MetadataEndpointTest {
         tempTestObject.put("test_name", result.getName());
         tempTestObject.put("parent", this.getClass().getSimpleName());
         tempTestObject.put("api_query_info", tempQueryArray);
-        if(result.getStatus() == ITestResult.SUCCESS)
+        tempTestObject.put("test_description", RefgetUtilities.generateTestDescription(result.getTestName()));
+        if(result.getStatus() == ITestResult.SUCCESS) {
             tempTestObject.put("result", 1);
-        else if(result.getStatus() == ITestResult.SKIP)
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), 1));
+        }
+        else if(result.getStatus() == ITestResult.SKIP) {
             tempTestObject.put("result", 0);
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), 0));
+        }
         else if(result.getStatus() == ITestResult.FAILURE) {
             tempTestObject.put("result", -1);
+            tempTestObject.put("result_text", RefgetUtilities.generateResultText(result.getTestName(), -1));
             context.setAttribute("metadata_result", 0);
         }
         classArray.add(tempTestObject);
@@ -73,6 +79,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -96,6 +103,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_SHA512, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -109,6 +117,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
@@ -122,6 +131,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("metadata");
         boolean flag = serviceJson.containsKey("md5");
@@ -139,6 +149,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("metadata");
         boolean flag = serviceJson.containsKey("trunc512");
@@ -156,6 +167,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("metadata");
         boolean flag = serviceJson.containsKey("length");
@@ -173,6 +185,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         HashMap serviceJson = response.jsonPath().get("metadata");
         boolean flag = serviceJson.containsKey("aliases");
@@ -190,6 +203,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, "dummy_id", headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 404);
@@ -203,6 +217,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertEquals(TestingFramework.getStatusCode(response), 406);
@@ -216,6 +231,7 @@ public class MetadataEndpointTest {
         //firing request
         Response response = RefgetUtilities.getMetadataResponse(refgetServer, Constants.NON_CIRCULAR_SEQUENCE_MD5, headerMap);
         tempQueryArray.add("Response: " + response.getBody().asString());
+        tempQueryArray.add("Request Headers: " + headerMap.toString());
 
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));

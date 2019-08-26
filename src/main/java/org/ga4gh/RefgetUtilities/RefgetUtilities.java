@@ -168,4 +168,12 @@ public class RefgetUtilities {
         String finalEndpoint = refgetServer.getEndpoint(Constants.SEQUENCE_ENDPOINT + id + Constants.METADATA_ENDPOINT);
         return request.GETWithHeaders(finalEndpoint, headerMap);
     }
+
+    public static String generateTestDescription(String testName) {
+        return "Description";
+    }
+
+    public static String generateResultText(String testName, int result) {
+        return "Test Result";
+    }
 }
