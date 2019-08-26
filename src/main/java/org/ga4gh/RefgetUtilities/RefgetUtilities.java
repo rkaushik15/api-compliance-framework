@@ -1,5 +1,6 @@
 package org.ga4gh.RefgetUtilities;
 
+import com.sun.org.apache.bcel.internal.generic.ANEWARRAY;
 import io.restassured.response.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -9,6 +10,7 @@ import org.ga4gh.ComplianceFramework.RequestsRestAssured;
 import org.ga4gh.ComplianceFramework.Server;
 import org.ga4gh.ComplianceFramework.Utilities;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -175,5 +177,27 @@ public class RefgetUtilities {
 
     public static String generateResultText(String testName, int result) {
         return "Test Result";
+    }
+
+    public static boolean replaceIfResultPresent(JSONObject obj, JSONArray arr) {
+        boolean present = false;
+        int i;
+        for(i = 0 ; i < arr.size() ; i++) {
+            if (((JSONObject) arr.get(i)).get("base_url").equals(obj.get("base_url"))){
+                present = true;
+                break;
+            }
+        }
+        if(present){
+            JSONArray newArray = new JSONArray();
+            for(int index = 0 ; index < arr.size() ; index++) {
+                if(index == i) {
+                    continue;
+                }
+                newArray.add(arr.get(index));
+            }
+            RefgetSession.resultsArray = newArray;
+        }
+        return present;
     }
 }

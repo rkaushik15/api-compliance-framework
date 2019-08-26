@@ -1,0 +1,86 @@
+{% include "partials/header.html" %}
+{% include "partials/navbar.html" %}
+
+<div class="container">
+  <p><a href="."><i class="fa fa-chevron-left"></i> Back</a></p>
+
+  <h1>RNAGet Implementation Compliance Report</h1>
+  <h2>Server: {{server.server_name}}</h2>
+  <h4 class="tab1">Base URL: {{server.base_url}}</h4>
+  <p class="tab1">Total tests: {{server.total_tests}}</p>
+  <p class="tab1">Total tests passed: {{server.total_passed_tests}}</p>
+  <p class="tab1">Total tests failed: {{server.total_failed_tests}}</p>
+  <p class="tab1">Total tests skipped: {{server.total_skipped_tests}}</p>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#text">Text</a></li>
+    <li><a data-toggle="tab" href="#matrix">Matrix</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="text" class="tab-pane fade in active">
+      {% for endpoint in h.s.endpoints %}
+        <section id="{{endpoint}}">
+          <div class="report-endpoint-section">
+            <h3 class="tab1">{{h.f.capitalize(endpoint)}} 
+            {% if not server.implemented[endpoint] %}
+              not implemented by server
+            {% endif %}
+            </h3>
+            
+              {% for test in server.test_results[endpoint] %}
+                <div class="tr-div tab3">
+                  <p class='tab1 tr-elem tr-p {{ h.s.status[test.result].css_class }}'><i class="fa {{h.s.status[test.result].fa_class}}"></i> {{h.f.format_test_name(test.name)}}: {{ h.s.status[test.result].status }}</p>
+                  <button class="btn btn-info tr-elem" type="button" data-toggle="collapse" data-target="#collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.name}}" aria-expanded="false" aria-controls="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.name}}">
+                      <i class="fa fa-info-circle"></i> Info
+                  </button>
+                </div>
+                
+                <div class="collapse" id="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.name}}">
+                  <div class="well">
+                    <p><strong>Description:</strong> {{test.test_description}}</p>
+                    <p><strong>Summary:</strong> {{test.result_text}}</p>
+                    <p><strong>API Query Info:</strong> </p>
+                    {% for m in test.api_query_info %}
+                    <p>{{m}}</p>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+
+    <div id="matrix" class="tab-pane fade">
+        <div class="container">
+            <table id="compliance_matrix" class="table">
+              <thead>
+                <th>Server name</th>
+                <th>Object</th>
+                <th>Test case</th>
+                <th>Status</th>
+              </thead>
+              <tbody>
+              
+              {% for endpoint in h.s.endpoints %} 
+                  {% for test in server.test_results[endpoint] %}
+                    <tr class="{{h.s.status[test.result].css_class}}">
+                      <td>{{server.server_name}}</td>
+                      <td>{{h.f.capitalize(endpoint)}}: </td>
+                      <td>{{h.f.format_test_name(test.name)}}</td>
+                      <td>{{h.s.status[test.result].status}}</td>
+                    </tr>
+                  {% endfor %}
+              {% endfor %}
+              
+              </tbody>
+            </table>
+        </div>
+    </div>
+    
+  </div>
+</div>
+
+{% include "partials/footer.html" %}

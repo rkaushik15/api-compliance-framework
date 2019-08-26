@@ -3,6 +3,7 @@ package org.ga4gh.RefgetUtilities;
 import io.restassured.path.json.JsonPath;
 import org.ga4gh.ComplianceFramework.Constants;
 import org.ga4gh.ComplianceFramework.Server;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -13,6 +14,8 @@ public class RefgetSession {
     private static Server refgetServer;
 
     public static JSONObject testObject = new JSONObject();
+
+    public static JSONArray resultsArray = new JSONArray();
 
     public static void setupEnvironment(String server){
         refgetServer = new Server(server);
