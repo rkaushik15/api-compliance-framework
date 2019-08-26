@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+
+<suite name="Suite">
+    <test name="RefgetSuite">
+        <classes>
+            <class name="org.ga4gh.RefgetTestSuite.RefgetBaseTest"/>
+            <class name="org.ga4gh.RefgetTestSuite.SequenceEndpointTest"/>
+            <class name="org.ga4gh.RefgetTestSuite.MetadataEndpointTest"/>
+            <class name="org.ga4gh.RefgetTestSuite.InfoEndpointTest"/>
+        </classes>
+    </test>
+</suite>
