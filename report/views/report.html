@@ -1,7 +1,7 @@
 {% include "partials/header.html" %}
 {% include "partials/navbar.html" %}
 
-<div class="container">
+<div class="container" xmlns:word-wrap="http://www.w3.org/1999/xhtml">
   <p><a href="."><i class="fa fa-chevron-left"></i> Back</a></p>
 
   <h1>RNAGet Implementation Compliance Report</h1>
@@ -30,19 +30,19 @@
             
               {% for test in server.test_results[endpoint] %}
                 <div class="tr-div tab3">
-                  <p class='tab1 tr-elem tr-p {{ h.s.status[test.result].css_class }}'><i class="fa {{h.s.status[test.result].fa_class}}"></i> {{h.f.format_test_name(test.name)}}: {{ h.s.status[test.result].status }}</p>
-                  <button class="btn btn-info tr-elem" type="button" data-toggle="collapse" data-target="#collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.name}}" aria-expanded="false" aria-controls="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.name}}">
+                  <p class='tab1 tr-elem tr-p {{ h.s.status[test.result].css_class }}'><i class="fa {{h.s.status[test.result].fa_class}}"></i> {{h.f.format_test_name(test.test_name)}}: {{ h.s.status[test.result].status }}</p>
+                  <button class="btn btn-info tr-elem" type="button" data-toggle="collapse" data-target="#collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.test_name}}" aria-expanded="false" aria-controls="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.test_name}}">
                       <i class="fa fa-info-circle"></i> Info
                   </button>
                 </div>
                 
-                <div class="collapse" id="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.name}}">
+                <div class="collapse" id="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.test_name}}">
                   <div class="well">
                     <p><strong>Description:</strong> {{test.test_description}}</p>
                     <p><strong>Summary:</strong> {{test.result_text}}</p>
                     <p><strong>API Query Info:</strong> </p>
                     {% for m in test.api_query_info %}
-                    <p>{{m}}</p>
+                    <p id="tr-break">{{m}}</p>
                     {% endfor %}
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                     <tr class="{{h.s.status[test.result].css_class}}">
                       <td>{{server.server_name}}</td>
                       <td>{{h.f.capitalize(endpoint)}}: </td>
-                      <td>{{h.f.format_test_name(test.name)}}</td>
+                      <td>{{h.f.format_test_name(test.test_name)}}</td>
                       <td>{{h.s.status[test.result].status}}</td>
                     </tr>
                   {% endfor %}

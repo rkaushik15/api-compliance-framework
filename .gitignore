@@ -138,3 +138,6 @@ target/
 loc
 testng_reports
 resources/tests.json
+
+__pycache__/
+report_server.pyc

@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for server in data %}
+        {% for server in data.servers %}
         {% set base_ref = h.f.server_name_url(server.server_name) %}
         <tr>
           <th scope="row"><a href="{{base_ref}}">{{server.server_name}}</a></th>
@@ -41,9 +41,8 @@
   <div id="links-div">
     <h3>Links</h3>
     <ul>
-      <li><a href="https://github.com/ga4gh-rnaseq/schema/blob/master/rnaget.md">rnaget API specification</a></li>
-      <li><a href="https://rnaget-compliance-suite.readthedocs.io/en/latest/">rnaget compliance documentation</a></li>
-      <li><a href="https://github.com/ga4gh-rnaseq/rnaget-compliance-suite">rnaget compliance application</a></li>
+      <li><a href="http://samtools.github.io/hts-specs/refget.html">refget API Specification</a></li>
+      <li><a href="https://compliancedoc.readthedocs.io/en/latest/">Compliance Documentation</a></li>
     </ul>
   </div>
 

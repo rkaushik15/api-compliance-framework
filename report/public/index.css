@@ -40,8 +40,13 @@ body {
   display: inline-block;
 }
 .tr-p {
-  width: 30.0em;
+  width: 50.0em;
 }
+
+#tr-break{
+  word-wrap: break-word;
+}
+
 #text {
   margin-top: 5px;
 }
