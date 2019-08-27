@@ -54,6 +54,9 @@ To view the JSON report on terminal, follow these steps:
  cat results.json
  ```
  
+A sample report generated for the Heroku refget server is hosted [here](https://rkaushik15.github.io/api-compliance-framework/).
+ 
+ 
 # Important URLs (Refget)
 
 [Refget Specification](http://samtools.github.io/hts-specs/refget.html)
