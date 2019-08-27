@@ -1,0 +1,51 @@
+{% include "partials/header.html" %}
+{% include "partials/navbar.html" %}
+
+<div class="container">
+
+  <div id="details-div">
+    <h3>Details</h3>
+    <p>Generated on {{h.f.timestamp()}}</p>
+  </div>
+
+  <div id="table-div">
+    <h3>Results</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Server</th>
+          <th scope="col">Base URL</th>
+          <th scope="col">Sequence</th>
+          <th scope="col">Service Info</th>
+          <th scope="col">Metadata</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for server in data.servers %}
+        {% set base_ref = h.f.server_name_url(server.server_name) %}
+        <tr>
+          <th scope="row"><a href="{{base_ref}}">{{server.server_name}}</a></th>
+          <td>{{server.base_url}}</td>
+          {% set endpoints = ["sequence", "service_info", "metadata"] %}
+          {% for endpoint in endpoints %}
+          {% set r = h.f.endpoint_status(server["test_results"][endpoint]) %}
+          <td><a href="{{base_ref}}#{{endpoint}}" class="btn {{r['btn']}}">{{r["text"]}}</a></td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="links-div">
+    <h3>Links</h3>
+    <ul>
+      <li><a href="http://samtools.github.io/hts-specs/refget.html">refget API Specification</a></li>
+      <li><a href="https://compliancedoc.readthedocs.io/en/latest/">Compliance Documentation</a></li>
+    </ul>
+  </div>
+
+</div>
+
+{% include "partials/footer.html" %}
