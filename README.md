@@ -1,4 +1,3 @@
-# api-compliance-framework
 Repository containing my project for Global Alliance for Genomics and Health as part of GSoC 2019
 
 
@@ -10,7 +9,7 @@ Repository containing my project for Global Alliance for Genomics and Health as 
 # API Compliane Framework
 
 The repository contains the source code of a generic framework which can be used to create API Compliance Tools and Test Suites to run on any implementation of servers which support the APIs. This can ensure that developers and server implementors follow the API specifications. 
-The framework can also be used to generate a Compliance Report ([example]()), which conform to a specific [JSON Schema](). 
+The framework can also be used to generate a Compliance Report ([example](https://drive.google.com/file/d/1QygrjI7wwuzJhZ0C0rxKvjPYzI-e9kBI/view?usp=sharing)), which conform to a specific [JSON Schema](). 
 
 
 # Refget Compliance Suite
@@ -54,6 +53,9 @@ To view the JSON report on terminal, follow these steps:
  
  cat results.json
  ```
+ 
+A sample report generated for the Heroku refget server is hosted [here](https://rkaushik15.github.io/api-compliance-framework/).
+ 
  
 # Important URLs (Refget)
 
