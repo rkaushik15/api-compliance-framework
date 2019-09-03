@@ -11,8 +11,10 @@ import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.SkipException;
 import org.testng.annotations.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,6 +99,10 @@ public class MetadataEndpointTest {
 
     @Test
     public void getSequenceMetadataSha512() {
+        boolean sha = ((ArrayList<String>) refgetServer.getServerProperty(Constants.REFGET_PROPERTY_ALGORITHMS)).contains("trunc512");
+        if(!sha)
+            throw new SkipException("Test skipped as server does not support SHA512");
+
         Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Accept", Constants.METADATA_ACCEPT_HEADER);
 
@@ -236,6 +242,5 @@ public class MetadataEndpointTest {
         //testing
         Assert.assertTrue(TestingFramework.checkSuccess(response));
         Assert.assertTrue(TestingFramework.checkHeaderPresent(response,"Content-Type"));
-        Assert.assertTrue(TestingFramework.validateResponseHeader(response, "Content-Type", Constants.METADATA_RESPONSE_CONTENT_TYPE_HEADER));
     }
 }
