@@ -22,11 +22,6 @@
       {% for endpoint in h.s.endpoints %}
         <section id="{{endpoint}}">
           <div class="report-endpoint-section">
-            <h3 class="tab1">{{h.f.capitalize(endpoint)}} 
-            {% if not server.implemented[endpoint] %}
-              not implemented by server
-            {% endif %}
-            </h3>
             
               {% for test in server.test_results[endpoint] %}
                 <div class="tr-div tab3">
@@ -35,7 +30,7 @@
                       <i class="fa fa-info-circle"></i> Info
                   </button>
                 </div>
-                
+
                 <div class="collapse" id="collapse-{{h.f.rm_space(server.server_name)}}-{{endpoint}}-{{test.test_name}}">
                   <div class="well">
                     <p><strong>Description:</strong> {{test.test_description}}</p>
@@ -63,8 +58,8 @@
                 <th>Status</th>
               </thead>
               <tbody>
-              
-              {% for endpoint in h.s.endpoints %} 
+
+              {% for endpoint in h.s.endpoints %}
                   {% for test in server.test_results[endpoint] %}
                     <tr class="{{h.s.status[test.result].css_class}}">
                       <td>{{server.server_name}}</td>
@@ -74,12 +69,12 @@
                     </tr>
                   {% endfor %}
               {% endfor %}
-              
+
               </tbody>
             </table>
         </div>
     </div>
-    
+
   </div>
 </div>
 
