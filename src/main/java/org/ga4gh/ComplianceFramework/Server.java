@@ -16,6 +16,11 @@ public class Server {
     private static Logger log = LogManager.getLogger(Server.class);
 
     /**
+     * The name of the server
+     */
+    private String serverName;
+
+    /**
      * The base URL/address of the server.
      */
     private String baseUrl;
@@ -61,6 +66,22 @@ public class Server {
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
         log.debug("Server Base URL set to: " + this.baseUrl);
+    }
+
+    /**
+     * Getter method to retrieve the name of the server.
+     * @return the name of the server.
+     */
+    public String getServerName() {
+        return serverName;
+    }
+
+    /**
+     * Setter method to set the name of the server to a specific value.
+     * @param serverName The name that is to be set.
+     */
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
 
     /**

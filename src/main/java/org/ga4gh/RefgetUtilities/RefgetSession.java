@@ -19,6 +19,12 @@ public class RefgetSession {
 
     public static void setupEnvironment(String server){
         refgetServer = new Server(server);
+        String serverName = System.getProperty("name");
+        if(serverName == null) {
+            serverName = "Refget Server";
+        }
+        refgetServer.setServerName(serverName);
+
         JsonPath serviceInfoResponse = RefgetUtilities.getServiceInfoResponse(refgetServer).jsonPath();
 
         Map<String, Object> properties = new HashMap<>();
@@ -29,7 +35,7 @@ public class RefgetSession {
 
         refgetServer.setServerProperties(properties);
 
-        testObject.put("server_name", "");
+        testObject.put("server_name", refgetServer.getServerName());
         testObject.put("base_url", refgetServer.getBaseUrl());
         testObject.put("date_time", java.time.LocalDateTime.now().toString());
         testObject.put("test_results", new JSONObject());
