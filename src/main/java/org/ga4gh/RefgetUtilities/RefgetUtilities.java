@@ -179,7 +179,7 @@ public class RefgetUtilities {
         return "Test Result";
     }
 
-    public static boolean replaceIfResultPresent(JSONObject obj, JSONArray arr) {
+    public static void removeIfResultPresent(JSONObject obj, JSONArray arr) {
         boolean present = false;
         int i;
         for(i = 0 ; i < arr.size() ; i++) {
@@ -188,16 +188,15 @@ public class RefgetUtilities {
                 break;
             }
         }
-        if(present){
+        if(present) {
             JSONArray newArray = new JSONArray();
-            for(int index = 0 ; index < arr.size() ; index++) {
-                if(index == i) {
+            for (int index = 0; index < arr.size(); index++) {
+                if (index == i) {
                     continue;
                 }
                 newArray.add(arr.get(index));
             }
             RefgetSession.resultsArray = newArray;
         }
-        return present;
     }
 }
