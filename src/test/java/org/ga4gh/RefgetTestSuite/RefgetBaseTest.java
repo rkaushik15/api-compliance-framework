@@ -22,7 +22,7 @@ public class RefgetBaseTest {
         JSONParser parser = new JSONParser();
         Object object = parser.parse(new FileReader(Constants.RESULT_DIR + "results.json"));
         RefgetSession.resultsArray = (JSONArray) ((JSONObject)object).get("servers");
-        RefgetSession.setupEnvironment("http://refget.herokuapp.com");
+        RefgetSession.setupEnvironment(System.getProperty("url"));
     }
 
     @AfterTest
